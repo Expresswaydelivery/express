@@ -31,49 +31,77 @@
     </div>
   </div>
 
-  <script>
-    const form = document.getElementById("trackingForm");
-    const input = document.getElementById("trackingID");
-    const tableContainer = document.getElementById("trackingTable");
-    const mapContainer = document.getElementById("mapContainer");
+ <script>
+  const form = document.getElementById("trackingForm");
+  const input = document.getElementById("trackingID");
+  const tableContainer = document.getElementById("trackingTable");
+  const mapContainer = document.getElementById("mapContainer");
+  const countdown = document.getElementById("countdown");
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const code = input.value.trim();
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const code = input.value.trim();
 
-      if (code === "EAD275-66297-09218") {
-        tableContainer.innerHTML = `
-          <table class="tracking-table">
-            <thead>
-              <tr>
-                <th>Stage</th>
-                <th>Location</th>
-                <th>Status</th>
-                <th>ETA</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>Departure</td><td>SH Contagem / Recanto dos Nobres</td><td>✅ Departed</td><td>—</td></tr>
-              <tr><td>Checkpoint</td><td>Feira de Santana</td><td>🚚 In Transit</td><td>—</td></tr>
-              <tr><td>Checkpoint</td><td>São Sebastião do Passé</td><td>🕓 Pending</td><td>—</td></tr>
-              <tr><td>Destination</td><td>Conjunto Santa Maria, Porto Real do Colégio - AL</td><td>📦 Awaiting Arrival</td><td><strong>30th June</strong></td></tr>
-            </tbody>
-          </table>
-          <div class="truck-animation">🚛 Moving through Brazil...</div>
+    if (code === "EAD275-66297-09218") {
+      tableContainer.innerHTML = `
+        <table class="tracking-table">
+          <thead>
+            <tr>
+              <th>Stage</th>
+              <th>Location</th>
+              <th>Status</th>
+              <th>ETA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Departure</td><td>SH Contagem / Recanto dos Nobres</td><td>✅ Departed</td><td>—</td></tr>
+            <tr><td>Checkpoint</td><td>Feira de Santana</td><td>🚚 In Transit</td><td>—</td></tr>
+            <tr><td>Checkpoint</td><td>São Sebastião do Passé</td><td>🕓 Pending</td><td>—</td></tr>
+            <tr><td>Destination</td><td>Conjunto Santa Maria, Porto Real do Colégio - AL</td><td>📦 Awaiting Arrival</td><td><strong>3rd September 2025</strong></td></tr>
+          </tbody>
+        </table>
+        <div class="truck-animation">🚛 Moving through Brazil...</div>
+        <div id="countdown" class="countdown-timer"></div>
+      `;
+
+      const rows = document.querySelectorAll(".tracking-table tbody tr");
+      rows.forEach((row, index) => {
+        row.style.animationDelay = `${index * 0.2}s`;
+      });
+
+      mapContainer.style.display = "block";
+      setTimeout(() => mapContainer.classList.add("show"), 50);
+
+      // Countdown logic
+      const targetDate = new Date("2025-09-03T00:00:00");
+      const updateCountdown = () => {
+        const now = new Date();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+          countdown.textContent = "📦 Package has arrived!";
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        countdown.innerHTML = `
+          ⏳ <strong>Time until arrival:</strong><br>
+          ${days}d ${hours}h ${minutes}m ${seconds}s
         `;
+      };
 
-        const rows = document.querySelectorAll(".tracking-table tbody tr");
-        rows.forEach((row, index) => {
-          row.style.animationDelay = `${index * 0.2}s`;
-        });
-
-        mapContainer.style.display = "block";
-        setTimeout(() => mapContainer.classList.add("show"), 50);
-      } else {
-        tableContainer.innerHTML = `<p class="error">❌ Tracking ID not found. Please try again.</p>`;
-        mapContainer.style.display = "none";
-      }
-    });
-  </script>
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    } else {
+      tableContainer.innerHTML = `<p class="error">❌ Tracking ID not found. Please try again.</p>`;
+      mapContainer.style.display = "none";
+      countdown.textContent = "";
+    }
+  });
+</script>
 </body>
 </html>
