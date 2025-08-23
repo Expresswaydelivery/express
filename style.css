@@ -120,6 +120,7 @@ button:hover {
 #mapContainer.show {
   opacity: 1;
 }
+
 .countdown-timer {
   margin-top: 20px;
   font-size: 18px;
