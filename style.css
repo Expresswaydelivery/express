@@ -1,13 +1,14 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: #000; /* fallback */
+  background: #000;
   position: relative;
   overflow-x: hidden;
+  color: #fff;
 }
 
 .background-overlay {
-  background-image: url('https://images.unsplash.com/photo-1709804945989-c8be542e04db?q=80&w=1631&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-image: url('https://images.unsplash.com/photo-1581090700227-1e7e3f9a7b6d?auto=format&fit=crop&w=1600&q=80');
   background-size: cover;
   background-position: center;
   position: fixed;
@@ -16,21 +17,18 @@ body {
   width: 100%;
   height: 100%;
   z-index: -1;
+  opacity: 0.2;
 }
+
 .container {
   max-width: 800px;
   margin: 60px auto;
   padding: 30px;
-  background: rgba(255, 255, 255, 0.1); /* Transparent white */
-  backdrop-filter: blur(10px);          /* Glass-like blur */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   text-align: center;
-  color: #fff; /* Light text for contrast */
-}
-
-h1 {
-  color: #2c3e50;
 }
 
 input[type="text"] {
@@ -40,6 +38,8 @@ input[type="text"] {
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 16px;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
 }
 
 button {
@@ -60,17 +60,30 @@ button:hover {
   width: 100%;
   border-collapse: collapse;
   margin-top: 30px;
+  animation: fadeIn 1s ease forwards;
 }
 
 .tracking-table th, .tracking-table td {
-  border: 1px solid #ddd;
+  border: 1px solid rgba(255,255,255,0.3);
   padding: 12px;
   text-align: center;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(6px);
+  color: #fff;
 }
 
 .tracking-table th {
-  background-color: #f2f2f2;
-  color: #333;
+  background-color: rgba(255,255,255,0.2);
+}
+
+.tracking-table tbody tr {
+  animation: fadeInRow 0.8s ease forwards;
+}
+
+.tracking-table tbody tr:hover {
+  background: rgba(255,255,255,0.25);
+  transform: scale(1.02);
+  transition: all 0.3s ease;
 }
 
 .truck-animation {
@@ -84,36 +97,26 @@ button:hover {
   50%  { transform: translateX(10px); }
   100% { transform: translateX(-10px); }
 }
+
 @keyframes fadeInRow {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-.tracking-table tbody tr {
-  background: rgba(255, 255, 255, 0.15); /* Semi-transparent row */
-  color: #fff;
-  animation: fadeInRow 0.8s ease forwards;
-  backdrop-filter: blur(6px);
-}
-.tracking-table tbody tr:hover {
-  background: rgba(255, 255, 255, 0.25);
-  transform: scale(1.02);
-  transition: all 0.3s ease;
-}
+
 .error {
   color: #e74c3c;
   font-weight: bold;
   margin-top: 20px;
 }
 
-.map-container {
+#mapContainer {
   margin-top: 40px;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 0 12px rgba(0,0,0,0.15);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+#mapContainer.show {
+  opacity: 1;
 }
