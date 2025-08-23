@@ -11,7 +11,7 @@
 
   <div class="container">
     <h1>📦 Delivery Tracker</h1>
-    <p>From Brazil Border ➝ Porto Real do Colégio, AL</p>
+    <p>Brazil Border ➝ Porto Real do Colégio, AL</p>
 
     <form id="trackingForm">
       <input type="text" id="trackingID" placeholder="Enter Tracking ID" required />
@@ -19,8 +19,7 @@
     </form>
 
     <div id="trackingTable"></div>
-
-    <div class="map-container">
+    <div id="mapContainer" style="display: none;">
       <iframe
         src="https://www.google.com/maps/d/u/0/embed?mid=1ukiwYQnkFOwGvMtrg9BViQvSzo2TMpk&ehbc=2E312F&noprof=1"
         width="100%"
@@ -36,6 +35,7 @@
     const form = document.getElementById("trackingForm");
     const input = document.getElementById("trackingID");
     const tableContainer = document.getElementById("trackingTable");
+    const mapContainer = document.getElementById("mapContainer");
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -53,36 +53,25 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Departure</td>
-                <td>SH Contagem / Recanto dos Nobres</td>
-                <td>✅ Departed</td>
-                <td>—</td>
-              </tr>
-              <tr>
-                <td>Checkpoint</td>
-                <td>Feira de Santana</td>
-                <td>🚚 In Transit</td>
-                <td>—</td>
-              </tr>
-              <tr>
-                <td>Checkpoint</td>
-                <td>São Sebastião do Passé</td>
-                <td>🕓 Pending</td>
-                <td>—</td>
-              </tr>
-              <tr>
-                <td>Destination</td>
-                <td>Conjunto Santa Maria, Porto Real do Colégio - AL</td>
-                <td>📦 Awaiting Arrival</td>
-                <td><strong>30th June</strong></td>
-              </tr>
+              <tr><td>Departure</td><td>SH Contagem / Recanto dos Nobres</td><td>✅ Departed</td><td>—</td></tr>
+              <tr><td>Checkpoint</td><td>Feira de Santana</td><td>🚚 In Transit</td><td>—</td></tr>
+              <tr><td>Checkpoint</td><td>São Sebastião do Passé</td><td>🕓 Pending</td><td>—</td></tr>
+              <tr><td>Destination</td><td>Conjunto Santa Maria, Porto Real do Colégio - AL</td><td>📦 Awaiting Arrival</td><td><strong>30th June</strong></td></tr>
             </tbody>
           </table>
           <div class="truck-animation">🚛 Moving through Brazil...</div>
         `;
+
+        const rows = document.querySelectorAll(".tracking-table tbody tr");
+        rows.forEach((row, index) => {
+          row.style.animationDelay = `${index * 0.2}s`;
+        });
+
+        mapContainer.style.display = "block";
+        setTimeout(() => mapContainer.classList.add("show"), 50);
       } else {
         tableContainer.innerHTML = `<p class="error">❌ Tracking ID not found. Please try again.</p>`;
+        mapContainer.style.display = "none";
       }
     });
   </script>
