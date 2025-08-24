@@ -2,12 +2,11 @@ body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   background: #000;
-  position: relative;
-  overflow-x: hidden;
   color: #fff;
+  overflow-x: hidden;
 }
 
-.background-overlay {
+.background {
   background-image: url('https://images.unsplash.com/photo-1709804945989-c8be542e04db?q=80&w=1631&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
   background-size: cover;
   background-position: center;
@@ -17,10 +16,10 @@ body {
   width: 100%;
   height: 100%;
   z-index: -1;
-  opacity: 0.2;
+  opacity: 0.25;
 }
 
-.container {
+.tracker-container {
   max-width: 800px;
   margin: 60px auto;
   padding: 30px;
@@ -60,7 +59,6 @@ button:hover {
   width: 100%;
   border-collapse: collapse;
   margin-top: 30px;
-  animation: fadeIn 1s ease forwards;
 }
 
 .tracking-table th, .tracking-table td {
@@ -76,31 +74,16 @@ button:hover {
   background-color: rgba(255,255,255,0.2);
 }
 
-.tracking-table tbody tr {
-  animation: fadeInRow 0.8s ease forwards;
-}
-
-.tracking-table tbody tr:hover {
-  background: rgba(255,255,255,0.25);
-  transform: scale(1.02);
-  transition: all 0.3s ease;
-}
-
-.truck-animation {
+.status-note {
   margin-top: 20px;
-  font-size: 24px;
-  animation: drive 2s ease-in-out infinite;
+  font-size: 20px;
+  animation: pulse 2s infinite;
 }
 
-@keyframes drive {
-  0%   { transform: translateX(-10px); }
-  50%  { transform: translateX(10px); }
-  100% { transform: translateX(-10px); }
-}
-
-@keyframes fadeInRow {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
 }
 
 .error {
@@ -109,22 +92,9 @@ button:hover {
   margin-top: 20px;
 }
 
-#mapContainer {
+.map-section {
   margin-top: 40px;
   border-radius: 10px;
   overflow: hidden;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-
-#mapContainer.show {
-  opacity: 1;
-}
-
-.countdown-timer {
-  margin-top: 20px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #fff;
-  animation: fadeIn 1s ease forwards;
+  display: none;
 }
